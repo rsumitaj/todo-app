@@ -18,12 +18,14 @@ app.use(express.static('assets'));
 
 var tasks = [
   {
-    task:"todo app",
-    category:"WORK"
+    description:"todo app",
+    category:"WORK",
+    date:"2021-06-06"
   },
   {
-    task:"gym",
-    category:"WORKOUT"
+    description:"gym",
+    category:"WORKOUT",
+    date:"2021-06-05"
   }
 ];
 
@@ -32,6 +34,11 @@ app.get('/',function(req,res){
     title:"TODO App",
     task_list : tasks
   })
+});
+
+app.post('/add-task',function(req,res){
+  tasks.push(req.body);
+  return res.redirect('back');
 });
 
 
