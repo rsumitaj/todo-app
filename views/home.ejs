@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <title>
+      <%= title %>
+    </title>
+    <link rel="stylesheet" href="css/home.css">
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+  </head>
+
+  <body>
+    <h1 class="heading">TODO APP</h1>
+
+    <form action="">
+
+      <div class="grid-container">
+      <div class="infos g1">
+      <label for="description">DESCRIPTION</label>
+      <input type="text" name="description" id="description" placeholder="What do you need too do ?" required>
+      </div>
+      
+  
+      <div class="infos g2">
+      <label for="category">CATEGORY</label>
+      <select name="category" id="category">
+        <option value="">Choose a category</option>
+        <option value="home">HOME</option>
+        <option value="school">SCHOOL</option>
+        <option value="work">WORK</option>
+        <option value="workout">WORKOUT</option>
+      </select>
+      </div>
+
+      <div class="infos g3">
+      <label for="date">DUE DATE</label>
+      <input type="date" id="date" required>
+      </div>
+      </div>
+
+      <div class="buttons">
+        <button type="submit" class="add">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+          Add Task
+        </button>
+  
+        <button type="submit" class="delete">
+          <i class="far fa-trash-alt"></i>
+          Delete Task
+        </button>
+        
+      </div>
+    </form>
+    <div class="list">
+      <ul>
+        <% for( let i of task_list){ %> 
+            <li class="task-list">
+              <form action="" class="g-1-1">
+                <input type="checkbox" name="checkbox" id="checkbox">
+                </form>
+              <div >
+                <%= i.task %>
+              </div>
+              <div class="cat-box"><%= i.category %></div>
+            </l>
+          <%} %>
+      </ul>
+    </div>
+  </body>
+</html>
