@@ -12,7 +12,7 @@
   <body>
     <h1 class="heading">TODO APP</h1>
 
-    <form action="/add-task" method="POST">
+    <form  method="POST">
 
       <div class="grid-container">
       <div class="infos g1">
@@ -25,10 +25,10 @@
       <label for="category">CATEGORY</label>
       <select name="category" id="category">
         <option value="">Choose a category</option>
-        <option value="home">HOME</option>
-        <option value="school">SCHOOL</option>
-        <option value="work">WORK</option>
-        <option value="workout">WORKOUT</option>
+        <option value="HOME">HOME</option>
+        <option value="SCHOOL">SCHOOL</option>
+        <option value="WORK">WORK</option>
+        <option value="WORKOUT">WORKOUT</option>
       </select>
       </div>
 
@@ -39,12 +39,14 @@
       </div>
 
       <div class="buttons">
-        <button type="submit" class="add">
+        <button type="submit" class="add" formaction="/add-task">
           <i class="fa fa-plus" aria-hidden="true"></i>
           Add Task
         </button>
-  
-        <button type="submit" class="delete" formaction="/remove-task">
+      </form>
+
+    <form action="/remove-task" method="POST">
+        <button type="submit" class="delete">
           <i class="far fa-trash-alt"></i>
           Delete Task
         </button>
@@ -55,12 +57,32 @@
       <ul>
         <% for( let i of task_list){ %> 
             <li class="task-list">
-                <input type="checkbox" name="checkbox" id="checkbox" value=" /remove-task/?checkbox=<%= i.description %>">
+                <input type="checkbox" name="checkbox" id="checkbox" value="<%= i._id %>">
               <div>
                 <%= i.description %><br>
+                <i class="fas fa-calendar-alt"></i>
                 <%=i.date%>
               </div>
-              <div class="cat-box"><%= i.category %></div>
+              
+              <%if(i.category=="WORK"){%>
+                <div class="cat-box work"> <i class="fas fa-briefcase"></i> <%= i.category %></div>
+                <%}%>
+                
+                <%if(i.category=="SCHOOL"){ %>
+                  <div class="cat-box school"> <i class="fas fa-school"></i> <%= i.category %></div>
+                  <%}%>
+                
+                  <%if(i.category=="WORKOUT"){ %>
+                    <div class="cat-box workout"> <i class="fas fa-dumbbell"></i> <%= i.category %></div>
+                    <%}%>
+
+                    <%if(i.category=="HOME"){ %>
+                      <div class="cat-box home"> <i class="fas fa-home"></i><%= i.category %></div>
+                      <%}%>
+
+                      <%if(i.category==""){ %>
+                        <div class="cat-box"> <%= i.category %></div>
+                        <%}%>              
             </li>
           <%} %>
       </ul>

@@ -3,6 +3,8 @@ const port = 8000;
 
 const db=require("./config/mongoose");
 
+const Task = require('./models/tasks');
+
 const app = express();
 
 
@@ -17,41 +19,56 @@ app.use(express.urlencoded());
 
 app.use(express.static('assets'));
 
-// tasks
-
-var tasks = [
-  {
-    description:"todo app",
-    category:"WORK",
-    date:"2021-06-06"
-  },
-  {
-    description:"gym",
-    category:"WORKOUT",
-    date:"2021-06-05"
-  }
-];
 
 app.get('/',function(req,res){
-  return res.render('home',{
-    title:"TODO App",
-    task_list : tasks
-  })
+
+  Task.find({},function(err,tasks){
+    if(err){
+      console.log("error in fetching data from db");
+      return;
+    }
+
+    return res.render('home',{
+      title:"TODO App",
+      task_list : tasks
+    })
+  
+  });
+
 });
 
+// adding task
 app.post('/add-task',function(req,res){
-  tasks.push(req.body);
-  return res.redirect('back');
+
+  Task.create({
+    description:req.body.description,
+    category:req.body.category,
+    date:req.body.date
+  },function(err,newTask){
+    if(err){
+      console.log('err in creating tasks');
+      return;
+    }
+    return res.redirect('back');
+
+  });
 });
 
-app.get('/remove-task',function(req,res){
-  let description =req.query.checkbox;
-  let taskIndex = tasks.findIndex(task => task.checkbox == description);
+// deleting task
+app.post("/remove-task/",function(req,res){
+  
+  let id = req.body.checkbox;
 
-  if(taskIndex!=-1){
-    tasks.splice(taskIndex,1);
-  }
-  return res.redirect('back');
+  Task.findByIdAndDelete(id,function(err){
+    if(err){
+      console.log('err in deleting from db');
+      return;
+    }
+
+    return res.redirect('back');
+
+  });
+
 });
 
 
