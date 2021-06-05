@@ -1,7 +1,10 @@
 const express = require('express');
 const port = 8000;
 
+const db=require("./config/mongoose");
+
 const app = express();
+
 
 // setup view engine 
 
@@ -38,6 +41,16 @@ app.get('/',function(req,res){
 
 app.post('/add-task',function(req,res){
   tasks.push(req.body);
+  return res.redirect('back');
+});
+
+app.get('/remove-task',function(req,res){
+  let description =req.query.checkbox;
+  let taskIndex = tasks.findIndex(task => task.checkbox == description);
+
+  if(taskIndex!=-1){
+    tasks.splice(taskIndex,1);
+  }
   return res.redirect('back');
 });
 

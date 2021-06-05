@@ -44,28 +44,29 @@
           Add Task
         </button>
   
-        <button type="submit" class="delete">
+        <button type="submit" class="delete" formaction="/remove-task">
           <i class="far fa-trash-alt"></i>
           Delete Task
         </button>
         
       </div>
-    </form>
+
     <div class="list">
       <ul>
         <% for( let i of task_list){ %> 
             <li class="task-list">
-              <form action="" class="g-1-1">
-                <input type="checkbox" name="checkbox" id="checkbox">
-                </form>
+                <input type="checkbox" name="checkbox" id="checkbox" value=" /remove-task/?checkbox=<%= i.description %>">
               <div>
                 <%= i.description %><br>
                 <%=i.date%>
               </div>
               <div class="cat-box"><%= i.category %></div>
-            </l>
+            </li>
           <%} %>
       </ul>
     </div>
+
+    </form>
+
   </body>
 </html>
